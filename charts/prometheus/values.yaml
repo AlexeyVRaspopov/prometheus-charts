@@ -1478,6 +1478,15 @@ serverFiles:
         static_configs:
           - targets:
             - localhost:9090
+      - job_name: vault
+        metrics_path: /v1/sys/metrics
+        params:
+         format: ['prometheus']
+        scheme: http
+        authorization:
+         credentials_file: /etc/prometheus/prometheus-token
+        static_configs:
+         - targets: ['vault-internal.vault.svc.cluster.local:8200']
 
       # A scrape configuration for running Prometheus on a Kubernetes cluster.
       # This uses separate scrape configs for cluster components (i.e. API server, node)
